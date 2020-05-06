@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "Next Gen App",
+    "slug": "now-ui-react-native",
+    "privacy": "public",
+    "sdkVersion": "36.0.0",
+    "platforms": ["ios", "android"],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon_sq.jpg",
+    "splash": {
+      "image": "./assets/icon.jpg",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "packagerOpts": {
+      "assetExts": ["ttf"]
+    }
+  }
+}
