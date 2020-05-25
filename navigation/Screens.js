@@ -14,6 +14,7 @@ import Articles from '../screens/Articles';
 import Onboarding from '../screens/Onboarding';
 import SettingsScreen from '../screens/Settings';
 import Feeds from '../screens/Feeds';
+import AddNewFeed from '../screens/AddNewFeed'
 // drawer
 import CustomDrawerContent from './Menu';
 // header for screens
@@ -154,6 +155,24 @@ function HomeStack(props) {
           header: ({ navigation, scene }) => (
             <Header
               title="Feed"
+              back
+              transparent
+              navigation={navigation}
+              scene={scene}
+              bgColor={nowTheme.COLORS.ACTIVE}
+              titleColor="white"
+              iconColor="white"
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="add-new-feed"
+        component={AddNewFeed}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              title="Add New"
               back
               transparent
               navigation={navigation}

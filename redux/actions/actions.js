@@ -10,3 +10,28 @@ export const sagaAction = createAction(SAGA_ACTION);
 export const SET_LOCALE = "SET_LOCALE";
 export const setLocale = createAction(SET_LOCALE);
 
+export const LOGIN = "LOGIN"
+export const login = createAction(LOGIN)
+
+export const LOGOUT = "LOGOUT"
+export const logout = createAction(LOGOUT) 
+
+export const FETCH_CATEGORIES = "FETCH_CATEGORIES"
+export const fetchCategories = createAction(FETCH_CATEGORIES)
+
+
+export const SET_CATEGORIES = "SET_CATEGORIES"
+export const setCategories = createAction(SET_CATEGORIES)
+
+export const FETCH_POSTS = "FETCH_POSTS"
+export const fetchPosts = createAction(FETCH_POSTS)
+
+
+export const FETCH_SOCIAL_POSTS = "FETCH_SOCIAL_POSTS"
+export const fetchSocialPosts = createAction(FETCH_SOCIAL_POSTS)
+
+export const SET_SOCIAL_POSTS = "SET_SOCIAL_POSTS"
+export const setSocialPosts = createAction(SET_SOCIAL_POSTS)
+
+export const APPEND_SOCIAL_POSTS = "APPEND_SOCIAL_POSTS"
+export const appendSocialPosts = createAction(APPEND_SOCIAL_POSTS)

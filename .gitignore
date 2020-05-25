@@ -11,3 +11,6 @@ yarn.lock
 
 .vscode
 web-build
+.expo
+.expo-shared
+node_modules

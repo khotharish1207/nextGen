@@ -18,6 +18,7 @@ class Card extends React.Component {
       imageStyle,
       ctaRight,
       titleStyle,
+      showCta = true,
     } = this.props;
 
     const imageStyles = [full ? styles.fullImage : styles.horizontalImage, imageStyle];
@@ -31,14 +32,15 @@ class Card extends React.Component {
 
     return (
       <Block row={horizontal} card flex style={cardContainer}>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('Pro')}>
-          <Block flex style={imgContainer}>
-            <Image resizeMode="cover" source={item.image} style={imageStyles} />
-          </Block>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('Pro')}>
-          <Block flex space="between" style={styles.cardDescription}>
-            <Block flex>
+        {/* <TouchableWithoutFeedback onPress={() => navigation.navigate('Pro')}> */}
+        <Block flex style={imgContainer}>
+          <Image resizeMode="cover" source={item.image} style={imageStyles} />
+        </Block>
+        {/* </TouchableWithoutFeedback> */}
+        {/* <TouchableWithoutFeedback onPress={() => navigation.navigate('Pro')}> */}
+        <Block flex space="between" style={styles.cardDescription}>
+          <Block flex>
+            {item.title && (
               <Text
                 style={{ fontFamily: 'montserrat-regular' }}
                 size={14}
@@ -47,43 +49,45 @@ class Card extends React.Component {
               >
                 {item.title}
               </Text>
-              
-              {item.subtitle && (
-                <Block flex center>
-                  <Text
-                    style={{ fontFamily: 'montserrat-regular' }}
-                    size={32}
-                    color={nowTheme.COLORS.BLACK}
-                  >
-                    {item.subtitle}
-                  </Text>
-                </Block>
-              )}
+            )}
 
-              {item.description && (
-                <Block flex center>
-                  <Text
-                    style={{ fontFamily: 'montserrat-regular', textAlign: 'center', padding: 15 }}
-                    size={14}
-                    color={'#9A9A9A'}
-                  >
-                    {item.description}
-                  </Text>
-                </Block>
-              )}
+            {item.subtitle && (
+              <Block flex center>
+                <Text
+                  style={{ fontFamily: 'montserrat-regular' }}
+                  size={32}
+                  color={nowTheme.COLORS.BLACK}
+                >
+                  {item.subtitle}
+                </Text>
+              </Block>
+            )}
 
-              {item.body && (
-                <Block flex left>
-                  <Text
-                    style={{ fontFamily: 'montserrat-regular' }}
-                    size={12}
-                    color={nowTheme.COLORS.TEXT}
-                  >
-                    {item.body}
-                  </Text>
-                </Block>
-              )}
-            </Block>
+            {item.description && (
+              <Block flex center>
+                <Text
+                  style={{ fontFamily: 'montserrat-regular', textAlign: 'center', padding: 15 }}
+                  size={14}
+                  color={'#9A9A9A'}
+                >
+                  {item.description}
+                </Text>
+              </Block>
+            )}
+
+            {item.body && (
+              <Block flex left>
+                <Text
+                  style={{ fontFamily: 'montserrat-regular' }}
+                  size={12}
+                  color={nowTheme.COLORS.TEXT}
+                >
+                  {item.body}
+                </Text>
+              </Block>
+            )}
+          </Block>
+          {showCta && (
             <Block right={ctaRight ? true : false}>
               <Text
                 style={styles.articleButton}
@@ -95,8 +99,9 @@ class Card extends React.Component {
                 {item.cta}
               </Text>
             </Block>
-          </Block>
-        </TouchableWithoutFeedback>
+          )}
+        </Block>
+        {/* </TouchableWithoutFeedback> */}
       </Block>
     );
   }

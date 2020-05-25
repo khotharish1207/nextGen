@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Dimensions, ScrollView, Image } from 'react-native';
+import { StyleSheet, Dimensions, ScrollView, Image, View } from 'react-native';
 import { Block, Text, Card } from 'galio-framework';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,55 +17,72 @@ class Home extends React.Component {
     return Math.ceil(width / 150);
   };
 
+  onAddNew = () => {
+    const { navigation } = this.props;
+    navigation.navigate('add-new-feed');
+  };
+
   renderArticles = () => {
-    const Topics = chunk([...topics, ...topics], this.getChunkSize());
-    // console.log('*****', Topics);
+    // const Topics = chunk([...topics, ...topics], this.getChunkSize());
+    const { categories = [] } = this.props;
 
     return (
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.articles}>
-        <Text
-          h4
-          style={{
-            fontFamily: 'montserrat-regular',
-            marginBottom: nowTheme.SIZES.BASE / 2,
-          }}
-          color={nowTheme.COLORS.HEADER}
-        >
-          Categories
-        </Text>
+      <View>
+        <Button
+          onlyIcon
+          icon="plus"
+          iconFamily="antdesign"
+          iconSize={30}
+          color="primary"
+          iconColor="#fff"
+          style={styles.floatingButton}
+          onPress={this.onAddNew}
+        ></Button>
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.articles}>
+          <Text
+            h4
+            style={{
+              fontFamily: 'montserrat-regular',
+              marginBottom: nowTheme.SIZES.BASE / 2,
+            }}
+            color={nowTheme.COLORS.HEADER}
+          >
+            Categories
+          </Text>
 
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          scrollEventThrottle={16}
-        >
-          {topics.map((t, i) => (
-            <CategoryIcon
-              key={i + '_chunk'}
-              item={t}
-              style={{ marginRight: nowTheme.SIZES.BASE }}
-            />
-          ))}
+          <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            scrollEventThrottle={16}
+          >
+            {categories.map((t, i) => (
+              <CategoryIcon
+                key={i + '_chunk'}
+                item={t}
+                style={{ marginRight: nowTheme.SIZES.BASE }}
+              />
+            ))}
+          </ScrollView>
+
+          <Text
+            h4
+            style={{
+              fontFamily: 'montserrat-regular',
+              marginBottom: nowTheme.SIZES.BASE / 2,
+            }}
+            color={nowTheme.COLORS.HEADER}
+          >
+            Suggested Topics
+          </Text>
+          <Block row space="around" style={{ marginTop: nowTheme.SIZES.BASE, flexWrap: 'wrap' }}>
+            {categories.map((t, i) => (
+              <Block key={`viewed-${i}`} style={styles.shadow}>
+                <CategoryIcon key={i + '_chunk'} item={t} style={styles.albumThumb} />
+              </Block>
+            ))}
+          </Block>
         </ScrollView>
-
-        <Text
-          h4
-          style={{
-            fontFamily: 'montserrat-regular',
-            marginBottom: nowTheme.SIZES.BASE / 2,
-          }}
-          color={nowTheme.COLORS.HEADER}
-        >
-          Suggested Topics
-        </Text>
-        <Block row space="around" style={{ marginTop: nowTheme.SIZES.BASE, flexWrap: 'wrap' }}>
-          {topics.map((t, i) => (
-            <Block key={`viewed-${i}`} style={styles.shadow}>
-              <CategoryIcon key={i + '_chunk'} item={t} style={styles.albumThumb} />
-            </Block>
-          ))}
-        </Block>
-      </ScrollView>
+      </View>
     );
   };
 
@@ -102,6 +119,15 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     elevation: 2,
   },
+  floatingButton: {
+    width: 60,
+    height: 60,
+    alignSelf: 'flex-end',
+    position: 'absolute',
+    bottom: 35,
+  },
 });
 
-export default Home;
+const mapState = ({ app }) => ({ ...app });
+
+export default connect(mapState)(Home);
