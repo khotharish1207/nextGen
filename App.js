@@ -31,6 +31,8 @@ const assetImages = [
   Images.InvisionLogo,
   Images.RegisterBackground,
   Images.ProfileBackground,
+  Images.person,
+  Images.newsPlaceholder,
 ];
 
 // cache product images

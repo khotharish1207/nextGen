@@ -116,7 +116,7 @@ class Feeds extends React.Component {
       titleStyle,
       socialPosts = { data: [] },
     } = this.props;
-    console.log(`*********`, this.props);
+    // console.log(`*********`, this.props);
 
     const imageStyles = [full ? styles.fullImage : styles.horizontalImage, imageStyle];
     const titleStyles = [styles.cardTitle, titleStyle];

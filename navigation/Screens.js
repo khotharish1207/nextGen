@@ -6,7 +6,6 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // screens
 import Home from '../screens/Home';
-import Pro from '../screens/Pro';
 import Profile from '../screens/Profile';
 import Register from '../screens/Register';
 import Components from '../screens/Components';
@@ -102,10 +101,10 @@ function ProfileStack(props) {
         component={Profile}
         options={{
           header: ({ navigation, scene }) => (
-            <Header transparent white title="Profile" navigation={navigation} scene={scene} />
+            <Header transparent  title="Profile" navigation={navigation} scene={scene} />
           ),
           cardStyle: { backgroundColor: '#FFFFFF' },
-          headerTransparent: true,
+          // headerTransparent: true,
         }}
       />
       {/* <Stack.Screen
@@ -221,10 +220,10 @@ function AppStack(props) {
     >
       <Drawer.Screen name="Home" component={HomeStack} />
       <Drawer.Screen name="Components" component={ComponentsStack} />
-      <Drawer.Screen name="Articles" component={ArticlesStack} />
+      {/* <Drawer.Screen name="Articles" component={ArticlesStack} /> */}
       <Drawer.Screen name="Profile" component={ProfileStack} />
-      <Drawer.Screen name="Account" component={AccountStack} />
-      <Drawer.Screen name="Settings" component={SettingsStack} />
+      {/* <Drawer.Screen name="Account" component={AccountStack} /> */}
+      {/* <Drawer.Screen name="Settings" component={SettingsStack} /> */}
     </Drawer.Navigator>
   );
 }

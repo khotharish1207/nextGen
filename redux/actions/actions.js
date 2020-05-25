@@ -13,6 +13,9 @@ export const setLocale = createAction(SET_LOCALE);
 export const LOGIN = "LOGIN"
 export const login = createAction(LOGIN)
 
+export const SET_USER = "SET_USER"
+export const setUser = createAction(SET_USER)
+
 export const LOGOUT = "LOGOUT"
 export const logout = createAction(LOGOUT) 
 

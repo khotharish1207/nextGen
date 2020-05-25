@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { StyleSheet, Image, TouchableWithoutFeedback, Dimensions } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 
+import Skeleton from 'react-loading-skeleton';
+
 import { nowTheme } from '../constants';
 const { width } = Dimensions.get('screen');
 
@@ -119,5 +121,9 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
   },
 });
+
+export function CategoryIconDummy(props) {
+  return <Skeleton count={props.count} width={100} height={100} />;
+}
 
 export default withNavigation(CategoryIcon);

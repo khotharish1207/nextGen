@@ -10,6 +10,9 @@ import { articles, nowTheme, topics, feeds, Images } from '../constants';
 const { width } = Dimensions.get('screen');
 
 class SocialPost extends React.Component {
+  state = {
+    like: false,
+  };
   renderButtons = (feed) => {
     return (
       <Block flex>
@@ -22,9 +25,10 @@ class SocialPost extends React.Component {
                 color="transparent"
                 icon="thumbs-up"
                 iconFamily="Font-Awesome"
-                iconColor={nowTheme.COLORS.THUMB_SWITCH_ON}
+                iconColor={this.state.like && nowTheme.COLORS.THUMB_SWITCH_ON}
                 iconSize={theme.SIZES.BASE}
                 style={styles.optionsButton}
+                onPress={this.onLike}
               >
                 like
               </Button>
@@ -47,7 +51,7 @@ class SocialPost extends React.Component {
             </Block>
             <Block flex>
               <Button
-                onPress={this.onClick(feed.url)}
+                onPress={this.onClick(feed.title)}
                 round
                 onlyIcon
                 color="transparent"
@@ -93,6 +97,8 @@ class SocialPost extends React.Component {
     );
   };
 
+  onLike = () => this.setState({ like: !this.state.like });
+
   render() {
     const {
       navigation,
@@ -115,6 +121,8 @@ class SocialPost extends React.Component {
       horizontal ? styles.horizontalStyles : styles.verticalStyles,
       styles.shadow,
     ];
+    // console.log(`***link***`, feed.postImgUrl);
+    
 
     return (
       <Block row={horizontal} card flex style={cardContainer}>
@@ -128,10 +136,11 @@ class SocialPost extends React.Component {
           //   caption={feed.source.name || ''}
           caption={moment(feed.createTs).format('dddd, MMMM Do YYYY, h:mm:ss a')}
           location="Los Angeles, CA"
-          avatar={'../assets/person_placeholder.jpg'}
+          avatar={Images.person}
           imageStyle={styles.cardImageRadius}
           imageBlockStyle={{ padding: theme.SIZES.BASE / 2 }}
-          image={'../assets/new_placeholder.png'}
+        //   image={Images.newsPlaceholder}
+          image={feed.postImgUrl}
         />
         <Block flex space="between" style={styles.cardDescription}>
           <Block flex>
@@ -159,7 +168,7 @@ class SocialPost extends React.Component {
             {feed.content && (
               <Block flex left>
                 <Text
-                  style={{ fontFamily: 'montserrat-regular', padding: 15, paddingTop: 0 }}
+                  style={{ fontFamily: 'montserrat-regular', padding: 10, paddingTop: 0 }}
                   size={14}
                   color={'#9A9A9A'}
                 >
@@ -167,6 +176,15 @@ class SocialPost extends React.Component {
                 </Text>
               </Block>
             )}
+            <Block flex right>
+              <Text
+                style={{ fontFamily: 'montserrat-regular', padding: 10 }}
+                size={10}
+                color={nowTheme.COLORS.BLACK}
+              >
+                Likes {feed.likeCount} comments {feed.commentCount}
+              </Text>
+            </Block>
 
             <Block right={ctaRight ? true : false}>
               <Text
