@@ -1,7 +1,7 @@
 import { SET_SOCIAL_POSTS, APPEND_SOCIAL_POSTS } from '../actions/actions';
 import { imageUrls } from '../../constants/Images';
 
-const INITIAL_STATE = { socialPosts: { size: 10, page: 1, data: [] } };
+const INITIAL_STATE = { socialPosts: { size: 5, page: 1, data: [] } };
 
 const reducer = (state = INITIAL_STATE, { type, payload = {} }) => {
   switch (type) {
@@ -12,7 +12,7 @@ const reducer = (state = INITIAL_STATE, { type, payload = {} }) => {
           return el;
         });
 
-        return { ...state, socialPosts: { ...state.socialPosts, data: d } };
+        return { ...state, socialPosts: { ...state.socialPosts, data: d, page: 1 } };
       }
       return { ...state };
 
@@ -20,7 +20,11 @@ const reducer = (state = INITIAL_STATE, { type, payload = {} }) => {
       if (payload && payload.data && payload.data.postDtl)
         return {
           ...state,
-          socialPosts: { ...state.socialPosts, data: [...state.socialPosts.data, ...postDtl] },
+          socialPosts: {
+            ...state.socialPosts,
+            data: [...state.socialPosts.data, ...payload.data.postDtl],
+            page: state.socialPosts.page + 1,
+          },
         };
       return { ...state };
 

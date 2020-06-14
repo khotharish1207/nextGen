@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { StyleSheet, Dimensions, ScrollView, View, Linking, Share } from 'react-native';
 import { Block, theme, Text, Card, Button } from 'galio-framework';
+import { like } from '../redux/actions/actions';
 
 import moment from 'moment';
 
@@ -97,7 +98,11 @@ class SocialPost extends React.Component {
     );
   };
 
-  onLike = () => this.setState({ like: !this.state.like });
+  onLike = () => {
+    const { like, feed } = this.props;
+    this.setState({ like: !this.state.like });
+    like(feed);
+  };
 
   render() {
     const {
@@ -122,7 +127,6 @@ class SocialPost extends React.Component {
       styles.shadow,
     ];
     // console.log(`***link***`, feed.postImgUrl);
-    
 
     return (
       <Block row={horizontal} card flex style={cardContainer}>
@@ -139,7 +143,7 @@ class SocialPost extends React.Component {
           avatar={Images.person}
           imageStyle={styles.cardImageRadius}
           imageBlockStyle={{ padding: theme.SIZES.BASE / 2 }}
-        //   image={Images.newsPlaceholder}
+          //   image={Images.newsPlaceholder}
           image={feed.postImgUrl}
         />
         <Block flex space="between" style={styles.cardDescription}>
@@ -241,4 +245,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SocialPost;
+const mapState = (state) => state;
+const mapDispatch = (dispatch) => bindActionCreators({ like }, dispatch);
+
+export default connect(mapState, mapDispatch)(SocialPost);

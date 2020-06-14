@@ -102,7 +102,7 @@ const Profile = (props) => {
                 </Block>
               </Block>
             </Block>
-
+           
             <Block
               middle
               row
@@ -119,7 +119,6 @@ const Profile = (props) => {
           </Block>
         </ImageBackground>
       </Block>
-
       <Block flex style={{ padding: theme.SIZES.BASE }}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Block flex style={{ marginTop: 20 }}>
@@ -213,9 +212,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     borderWidth: 0,
   },
-  nameInfo: {
-    marginTop: 35,
-  },
+
   thumb: {
     borderRadius: 4,
     marginVertical: 4,

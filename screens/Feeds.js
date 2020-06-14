@@ -7,6 +7,8 @@ import { Select, Icon, Input, Header, Switch, SocialPost } from '../components';
 
 import moment from 'moment';
 
+import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
+
 import { articles, nowTheme, topics, feeds } from '../constants';
 import { fetchSocialPosts } from '../redux/actions/actions';
 
@@ -103,6 +105,31 @@ class Feeds extends React.Component {
       </Block>
     );
   };
+
+  onLoadMore = () => this.props.fetchSocialPosts({ type: 'loadMore' });
+
+  renderDummy = () => {
+    const dummy = [];
+    for (let index = 0; index < 4; index++) {
+      dummy.push(
+        <ContentLoader height={330} backgroundColor="#9f9d9e" foregroundColor="#ecebeb">
+          <Rect x="65" y="164" rx="3" ry="3" width="88" height="6" />
+          <Rect x="66" y="183" rx="3" ry="3" width="52" height="6" />
+          <Rect x="13" y="228" rx="3" ry="3" width="369" height="6" />
+          <Rect x="13" y="211" rx="3" ry="3" width="178" height="6" />
+          <Circle cx="33" cy="176" r="20" />
+          <Rect x="9" y="1" rx="0" ry="0" width="379" height="146" />
+          <Rect x="308" y="178" rx="3" ry="3" width="52" height="6" />
+          <Rect x="12" y="241" rx="3" ry="3" width="369" height="6" />
+          <Rect x="13" y="254" rx="3" ry="3" width="369" height="6" />
+          <Rect x="15" y="284" rx="3" ry="3" width="76" height="12" />
+          <Rect x="300" y="270" rx="3" ry="3" width="35" height="7" />
+          <Rect x="345" y="269" rx="3" ry="3" width="35" height="7" />
+        </ContentLoader>
+      );
+    }
+    return dummy;
+  };
   render() {
     const {
       navigation,
@@ -116,7 +143,6 @@ class Feeds extends React.Component {
       titleStyle,
       socialPosts = { data: [] },
     } = this.props;
-    // console.log(`*********`, this.props);
 
     const imageStyles = [full ? styles.fullImage : styles.horizontalImage, imageStyle];
     const titleStyles = [styles.cardTitle, titleStyle];
@@ -129,81 +155,19 @@ class Feeds extends React.Component {
 
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        {socialPosts.data.map((post, idx) => (
-          <SocialPost feed={post} key={`posts_${idx}`} />
-        ))}
-
-        {/* {feeds.map((feed, idx) => (
-          <Block key={`feed_${feed.publishedAt}`} row={horizontal} card flex style={cardContainer}>
-            <Card
-              flex
-              borderless
-              card={false}
-              shadow={false}
-              style={styles.card}
-              title={feed.author}
-              //   caption={feed.source.name || ''}
-              caption={moment(feed.publishedAt).format('dddd, MMMM Do YYYY, h:mm:ss a')}
-              location="Los Angeles, CA"
-              avatar="http://i.pravatar.cc/100?id=skater"
-              imageStyle={styles.cardImageRadius}
-              imageBlockStyle={{ padding: theme.SIZES.BASE / 2 }}
-              //   image={feed.urlToImage}
-              image={
-                'https://www.nbcsports.com/philadelphia/sites/csnphilly/files/2020/03/15/usa_wells_fargo_center_sixers_fans.jpg'
-              }
-            />
-            <Block flex space="between" style={styles.cardDescription}>
-              <Block flex>
-                <Text
-                  style={{ fontFamily: 'montserrat-regular' }}
-                  size={14}
-                  style={titleStyles}
-                  color={nowTheme.COLORS.SECONDARY}
-                >
-                  {feed.title}
-                </Text>
-
-                {feed.subtitle && (
-                  <Block flex left>
-                    <Text
-                      style={{ fontFamily: 'montserrat-regular' }}
-                      size={32}
-                      color={nowTheme.COLORS.BLACK}
-                    >
-                      {feed.subtitle}
-                    </Text>
-                  </Block>
-                )}
-
-                {feed.content && (
-                  <Block flex left>
-                    <Text
-                      style={{ fontFamily: 'montserrat-regular', padding: 15, paddingTop: 0 }}
-                      size={14}
-                      color={'#9A9A9A'}
-                    >
-                      {feed.content}
-                    </Text>
-                  </Block>
-                )}
-
-                {this.renderButtons(feed)}
-                <Block right={ctaRight ? true : false}>
-                  <Text
-                    style={styles.articleButton}
-                    size={12}
-                    muted={!ctaColor}
-                    color={ctaColor || nowTheme.COLORS.ACTIVE}
-                    bold
-                  >
-                    View article
-                  </Text>
-                </Block>
-              </Block>
-            </Block>
-          </Block>
-        ))} */}
+        {socialPosts.data && socialPosts.data.length === 0
+          ? this.renderDummy()
+          : socialPosts.data.map((post, idx) => <SocialPost feed={post} key={`posts_${idx}`} />)}
+        <Block row space="evenly">
+          <Button
+            round
+            capitalize
+            color={nowTheme.COLORS.ACTIVE}
+            onPress={this.onLoadMore}
+          >
+            Load More
+          </Button>
+        </Block>
       </ScrollView>
     );
   }
@@ -247,4 +211,4 @@ const styles = StyleSheet.create({
 
 const mapState = ({ posts }) => ({ ...posts });
 const mapDispatch = (dispatch) => bindActionCreators({ fetchSocialPosts }, dispatch);
-export default connect(mapState,  mapDispatch)(Feeds);
+export default connect(mapState, mapDispatch)(Feeds);

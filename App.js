@@ -8,7 +8,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
 
 import configureStore from './redux/store';
-import { fetchCategories } from './redux/actions/actions';
+import { fetchCategories, fetchServiceLocations } from './redux/actions/actions';
 import Screens from './navigation/Screens';
 import { Images, articles, nowTheme } from './constants';
 
@@ -16,6 +16,7 @@ const store = configureStore({});
 
 (function init() {
   store.dispatch(fetchCategories());
+  store.dispatch(fetchServiceLocations());
 })();
 
 // cache app images

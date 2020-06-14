@@ -32,6 +32,7 @@
     "moment": "^2.25.3",
     "prop-types": "^15.7.2",
     "react": "16.9.0",
+    "react-content-loader": "^5.0.4",
     "react-loading-skeleton": "^2.0.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.1.tar.gz",
     "react-native-gesture-handler": "~1.5.0",

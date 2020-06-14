@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ScrollView, StyleSheet, Dimensions, Image, TouchableOpacity, Linking } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 import { useSafeArea } from 'react-native-safe-area-context';
 import Images from '../constants/Images';
-import { DrawerItem as DrawerCustomItem, Icon } from '../components';
+import {
+  DrawerItem as DrawerCustomItem,
+  Icon,
+  LocationSelector,
+  Dialog,
+  Divider,
+} from '../components';
 import { login, logout } from '../redux/actions/actions';
 
 import nowTheme from '../constants/Theme';
@@ -21,7 +27,8 @@ function CustomDrawerContent({
   auth,
   ...props
 }) {
-  const insets = useSafeArea();
+  const [loginVisible, setloginVisible] = useState(false);
+  //const insets = useSafeArea();
   const { token, user } = auth;
 
   const screens = [
@@ -54,46 +61,30 @@ function CustomDrawerContent({
               />
             );
           })}
+
           <Block flex style={{ marginTop: 24, marginVertical: 8, paddingHorizontal: 8 }}>
-            <Block
-              style={{
-                borderColor: 'white',
-                width: '93%',
-                borderWidth: StyleSheet.hairlineWidth,
-                marginHorizontal: 10,
-              }}
-            />
-            <Text
-              color={nowTheme.COLORS.WHITE}
-              style={{
-                marginTop: 30,
-                marginLeft: 20,
-                marginBottom: 10,
-                fontFamily: 'montserrat-regular',
-                fontWeight: '300',
-                fontSize: 12,
-              }}
-            >
-              USER
-            </Text>
+            <Divider />
             {user && user.id && (
-              <Text
-                style={{ fontFamily: 'montserrat-regular', marginLeft: 20 }}
-                size={14}
-                color={nowTheme.COLORS.SECONDARY}
-              >
-                {user.userName}
-              </Text>
+              <>
+                <Text style={styles.text}>USER</Text>
+                <Text style={styles.text}>{user.userName}</Text>
+              </>
             )}
+
+            <Text style={styles.text} size={14} color={nowTheme.COLORS.WHITE}>
+              Your City
+            </Text>
+            <LocationSelector />
           </Block>
-          {/* <DrawerCustomItem title="GETTING STARTED" navigation={navigation}/> */}
           <DrawerCustomItem
             title={token ? 'LOGOUT' : 'LOGIN'}
             navigation={navigation}
-            onPress={token ? props.logout : props.login}
+            onPress={token ? props.logout : () => setloginVisible(true)}
           />
         </ScrollView>
       </Block>
+
+      <Dialog visible={loginVisible} title={`Login`} onClose={() => setloginVisible(false)} />
     </Block>
   );
 }
@@ -114,6 +105,13 @@ const styles = StyleSheet.create({
   logo: {
     height: 40,
     width: 37,
+  },
+  text: {
+    fontFamily: 'montserrat-regular',
+    marginTop: 15,
+    marginLeft: 10,
+    marginBottom: 10,
+    color: nowTheme.COLORS.WHITE,
   },
 });
 

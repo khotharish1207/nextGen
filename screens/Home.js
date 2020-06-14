@@ -8,6 +8,8 @@ import { Button, CategoryIcon } from '../components';
 import { articles, nowTheme, topics } from '../constants';
 import { fetchCategories } from '../redux/actions/actions';
 import { chunk } from '../utils';
+import KeyboardAvoidingView from '../components/KeyboardAvoidingView';
+
 // import { CategoryIconDummy } from '../components/CategoryIcon';
 
 const { width } = Dimensions.get('screen');
@@ -17,7 +19,7 @@ const thumbMeasure = (width - 48 - 32) / 3;
 class Home extends React.Component {
   componentDidMount() {
     const { categories = [] } = this.props;
-    if (categories.length ===0 ) this.props.fetchCategories();
+    if (categories.length === 0) this.props.fetchCategories();
   }
 
   getChunkSize = () => {
@@ -30,9 +32,7 @@ class Home extends React.Component {
   };
 
   renderArticles = () => {
-    // const Topics = chunk([...topics, ...topics], this.getChunkSize());
     const { categories = [] } = this.props;
-    console.log(`categories***`, categories);
 
     return (
       <View>
@@ -89,6 +89,7 @@ class Home extends React.Component {
               </Block>
             ))}
           </Block>
+          {/* <KeyboardAvoidingView /> */}
         </ScrollView>
       </View>
     );

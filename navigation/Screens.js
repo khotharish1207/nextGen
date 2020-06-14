@@ -13,7 +13,8 @@ import Articles from '../screens/Articles';
 import Onboarding from '../screens/Onboarding';
 import SettingsScreen from '../screens/Settings';
 import Feeds from '../screens/Feeds';
-import AddNewFeed from '../screens/AddNewFeed'
+import AddNewFeed from '../screens/AddNewFeed';
+import Welcome from '../screens/Welcome';
 // drawer
 import CustomDrawerContent from './Menu';
 // header for screens
@@ -101,7 +102,7 @@ function ProfileStack(props) {
         component={Profile}
         options={{
           header: ({ navigation, scene }) => (
-            <Header transparent  title="Profile" navigation={navigation} scene={scene} />
+            <Header transparent title="Profile" navigation={navigation} scene={scene} />
           ),
           cardStyle: { backgroundColor: '#FFFFFF' },
           // headerTransparent: true,
@@ -168,6 +169,7 @@ function HomeStack(props) {
       <Stack.Screen
         name="add-new-feed"
         component={AddNewFeed}
+        // component={Welcome}
         options={{
           header: ({ navigation, scene }) => (
             <Header
