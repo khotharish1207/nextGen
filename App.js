@@ -6,11 +6,13 @@ import { Asset } from 'expo-asset';
 import { Block, GalioProvider } from 'galio-framework';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import configureStore from './redux/store';
 import { fetchCategories, fetchServiceLocations } from './redux/actions/actions';
 import Screens from './navigation/Screens';
 import { Images, articles, nowTheme } from './constants';
+import BusyScreen from './components/BusyScreen';
 
 const store = configureStore({});
 
@@ -80,6 +82,7 @@ export default class App extends React.Component {
             <GalioProvider theme={nowTheme}>
               <Block flex>
                 <Screens />
+                <BusyScreen />
               </Block>
             </GalioProvider>
           </NavigationContainer>

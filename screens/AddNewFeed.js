@@ -1,12 +1,21 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Image, Button } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { StyleSheet, Image, Button, TextInput } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
-import { Block, Text, theme } from 'galio-framework';
-
-import { articles, nowTheme } from '../constants/';
-import { Icon, Input, Button as LButton } from '../components';
+import { Block, Text, theme, Button as Btn, Icon } from 'galio-framework';
+// import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { addSocialPosts } from '../redux/actions/actions';
+import { nowTheme } from '../constants/';
+import {
+  Input,
+  Button as LButton,
+  KeyboardAwareScrollView,
+  LocationSelector,
+  TextArea,
+} from '../components';
 
 class AddNewFeed extends React.Component {
   state = {
@@ -40,9 +49,9 @@ class AddNewFeed extends React.Component {
         this.setState({ image: result.uri });
       }
 
-      console.log(result);
+      // console.log(result);
     } catch (E) {
-      console.log(E);
+      // console.log(E);
     }
   };
 
@@ -53,7 +62,13 @@ class AddNewFeed extends React.Component {
         <Block flex style={styles.imageContainer}>
           {image && <Image source={{ uri: image }} style={styles.fullImage} />}
         </Block>
-        <Button title="Pick an image from camera roll" onPress={this._pickImage} />
+
+        <Button
+          title="Pick an image from camera roll"
+          icon="refresh"
+          iconFamily="Font-Awesome"
+          onPress={this._pickImage}
+        />
       </Block>
     );
   };
@@ -71,6 +86,7 @@ class AddNewFeed extends React.Component {
             placeholder="Title of news"
             onFocus={() => this.setState({ primaryFocus: true })}
             onBlur={() => this.setState({ primaryFocus: false })}
+            onChange={this.onChange('title')}
             iconContent={<Block />}
             shadowless
           />
@@ -85,36 +101,52 @@ class AddNewFeed extends React.Component {
             placeholder="Content"
             onFocus={() => this.setState({ ContentFocus: true })}
             onBlur={() => this.setState({ ContentFocus: false })}
+            onChange={this.onChange('content')}
             iconContent={<Block />}
             shadowless
           />
+          <TextArea multiline numberOfLines={6} />
         </Block>
       </Block>
     );
   };
 
-  render() {
+  renderLocationSelector = () => {
     return (
-      <Block flex style={styles.container}>
-        <ScrollView 
-          showsVerticalScrollIndicator={false}
-          keyboardDismissMode='on-drag'
-          keyboardShouldPersistTaps='always'
-        >
-          {this.renderCards()}
-          {this.renderInputs()}
-          <Block flex center style={{ marginTop: 20 }}>
-            <LButton
-              // onPress={this.onClick(feed.url)}
-              round
-              color="primary"
-              size="small"
-            >
-              Share
-            </LButton>
-          </Block>
-        </ScrollView>
+      <Block flex>
+        <Text size={16} style={styles.title}>
+          <Icon
+            name="location-arrow"
+            family="Font-Awesome"
+            size={16}
+            color={nowTheme.COLORS.PRIMARY}
+            style={{ marginRight: 10 }}
+          />
+          &nbsp;Select City
+        </Text>
+
+        <LocationSelector style={{ color: nowTheme.COLORS.BLACK }} />
       </Block>
+    );
+  };
+
+  onPostSubmit = () => {};
+
+  onChange = (type) => (e) => this.setState({ [type]: e.target.value });
+
+  render() {
+    console.log(this.state);
+    return (
+      <KeyboardAwareScrollView>
+        {this.renderCards()}
+        {this.renderLocationSelector()}
+        {this.renderInputs()}
+        <Block flex center style={{ marginTop: 20 }}>
+          <LButton round color="primary" size="small">
+            Share
+          </LButton>
+        </Block>
+      </KeyboardAwareScrollView>
     );
   }
 }
@@ -127,7 +159,7 @@ const styles = StyleSheet.create({
     fontFamily: 'montserrat-bold',
     paddingBottom: theme.SIZES.BASE,
     marginTop: 20,
-    color: nowTheme.COLORS.HEADER,
+    color: nowTheme.COLORS.PRIMARY,
   },
   imageContainer: {
     borderRadius: 3,
@@ -146,4 +178,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddNewFeed;
+const mapState = (state) => state;
+const mapDispatch = (dispatch) => bindActionCreators({ addSocialPosts }, dispatch);
+
+// export default AddNewFeed;
+export default connect(mapState, mapDispatch)(AddNewFeed);

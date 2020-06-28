@@ -3,33 +3,51 @@ import { View, Picker, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { setServiceLocations } from '../redux/actions/actions';
+import { setServiceLocations, setUserLocation } from '../redux/actions/actions';
 import nowTheme from '../constants/Theme';
+
+// "cityId": 1,
+// "cityName": "Pune",
+// "countryCode": "IN",
+// "countryName": "India",
+// "districtId": 1,
+// "districtName": "Pune",
+// "stateCode": "MH",
+// "stateId": 27,
+// "stateName": "Maharashtra",
 
 function renderLocations(serviceLocations) {
   return serviceLocations.map((location) => (
     <Picker.Item
       key={`serviceLocation_${location.cityId}`}
       label={location.cityName}
-      value={`${location.stateCode}_${location.cityId}`}
+      value={`${location.stateId}_${location.districtId}_${location.cityId}`}
     />
   ));
 }
 
-function LocationSelect({ serviceLocations, onValueChange, ...props }) {
-  const [selectedValue, setSelectedValue] = useState(`MH_1`);
+function LocationSelect({
+  serviceLocations,
+  setUserLocation,
+  onValueChange,
+  style,
+  value,
+  ...props
+}) {
+  const [selectedValue, setSelectedValue] = useState(`27_1_1`); // Pune
 
-  const onValueChangeCustom = (itemValue) => setSelectedValue(itemValue);
+  const onValueChangeCustom = (itemValue) => {
+    setSelectedValue(itemValue);
+    setUserLocation(itemValue);
+    onValueChange && onValueChange(itemValue);
+  };
 
   return (
     <Picker
-      itemStyle={{
-        color: nowTheme.COLORS.WHITE,
-      }}
-      style={styles.pickerItem}
+      style={[styles.pickerItem, style]}
       prompt="Select Location"
-      selectedValue={selectedValue}
-      onValueChange={onValueChange || onValueChangeCustom}
+      selectedValue={value || selectedValue}
+      onValueChange={onValueChangeCustom}
       {...props}
     >
       {renderLocations(serviceLocations)}
@@ -40,6 +58,7 @@ function LocationSelect({ serviceLocations, onValueChange, ...props }) {
 LocationSelect.defaultProps = {
   mode: 'dialog',
   serviceLocations: [],
+  style: {},
 };
 const styles = StyleSheet.create({
   container: {
@@ -53,6 +72,6 @@ const styles = StyleSheet.create({
 });
 
 const mapState = ({ app: { serviceLocations } }) => ({ serviceLocations });
-const mapDispatch = (dispatch) => bindActionCreators({ setServiceLocations }, dispatch);
+const mapDispatch = (dispatch) => bindActionCreators({ setUserLocation }, dispatch);
 
 export default connect(mapState, mapDispatch)(LocationSelect);

@@ -11,6 +11,8 @@ import {
   LocationSelector,
   Dialog,
   Divider,
+  Input,
+  Button,
 } from '../components';
 import { login, logout } from '../redux/actions/actions';
 
@@ -31,15 +33,17 @@ function CustomDrawerContent({
   //const insets = useSafeArea();
   const { token, user } = auth;
 
+  const onLogin = () => {
+    props.login();
+    setloginVisible(false);
+  };
+
   const screens = [
     'Home',
     'Components',
-    // "Articles",
     token ? 'Profile' : null,
     // 'Account',
   ].filter((x) => x);
-
-  console.log(`token`, token);
 
   return (
     <Block style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
@@ -84,7 +88,38 @@ function CustomDrawerContent({
         </ScrollView>
       </Block>
 
-      <Dialog visible={loginVisible} title={`Login`} onClose={() => setloginVisible(false)} />
+      <Dialog visible={loginVisible} title={`Login`} onClose={() => setloginVisible(false)}>
+        <Text size={16}>User Name</Text>
+        <Block>
+          <Input
+            // primary={this.state.primaryFocus}
+            right
+            placeholder="User Name"
+            // onFocus={() => this.setState({ primaryFocus: true })}
+            // onBlur={() => this.setState({ primaryFocus: false })}
+            iconContent={<Block />}
+            shadowless
+          />
+        </Block>
+        <Text size={16}>Password</Text>
+        <Block>
+          <Input
+            // primary={this.state.ContentFocus}
+            right
+            placeholder="Password"
+            // onFocus={() => this.setState({ ContentFocus: true })}
+            // onBlur={() => this.setState({ ContentFocus: false })}
+            iconContent={<Block />}
+            shadowless
+          />
+        </Block>
+
+        <Block center style={{ marginTop: 20 }}>
+          <Button onPress={onLogin} round color="primary" size="small">
+            Login
+          </Button>
+        </Block>
+      </Dialog>
     </Block>
   );
 }

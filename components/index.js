@@ -11,6 +11,8 @@ import SocialPost from './SocialPosts';
 import LocationSelector from './LocationSelect';
 import Dialog from './Dialog';
 import Divider from './Divider';
+import KeyboardAwareScrollView from './KeyboardAwareScrollViewCustom';
+import TextArea from './TextArea';
 
 export {
   Button,
@@ -26,4 +28,6 @@ export {
   LocationSelector,
   Dialog,
   Divider,
+  KeyboardAwareScrollView,
+  TextArea,
 };

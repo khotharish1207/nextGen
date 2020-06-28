@@ -9,6 +9,9 @@ export const sagaAction = createAction(SAGA_ACTION);
 export const SET_LOCALE = 'SET_LOCALE';
 export const setLocale = createAction(SET_LOCALE);
 
+export const SET_BUSY = 'SET_BUSY';
+export const setBusy = createAction(SET_BUSY);
+
 export const LOGIN = 'LOGIN';
 export const login = createAction(LOGIN);
 
@@ -33,6 +36,9 @@ export const fetchServiceLocations = createAction(FETCH_SERVICE_LOCATIONS);
 export const SET_SERVICE_LOCATIONS = 'SET_SERVICE_LOCATIONS';
 export const setServiceLocations = createAction(SET_SERVICE_LOCATIONS);
 
+export const SET_USER_LOCATIONS = 'SET_USER_LOCATIONS';
+export const setUserLocation = createAction(SET_USER_LOCATIONS);
+
 export const FETCH_POSTS = 'FETCH_POSTS';
 export const fetchPosts = createAction(FETCH_POSTS);
 
@@ -44,3 +50,6 @@ export const setSocialPosts = createAction(SET_SOCIAL_POSTS);
 
 export const APPEND_SOCIAL_POSTS = 'APPEND_SOCIAL_POSTS';
 export const appendSocialPosts = createAction(APPEND_SOCIAL_POSTS);
+
+export const ADD_SOCIAL_POSTS = 'ADD_SOCIAL_POSTS';
+export const addSocialPosts = createAction(ADD_SOCIAL_POSTS);

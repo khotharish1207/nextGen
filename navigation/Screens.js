@@ -14,11 +14,12 @@ import Onboarding from '../screens/Onboarding';
 import SettingsScreen from '../screens/Settings';
 import Feeds from '../screens/Feeds';
 import AddNewFeed from '../screens/AddNewFeed';
-import Welcome from '../screens/Welcome';
 // drawer
 import CustomDrawerContent from './Menu';
 // header for screens
 import { Header, Icon } from '../components';
+import BusyScreen from '../components/BusyScreen';
+
 import { nowTheme, tabs } from '../constants';
 
 const { width } = Dimensions.get('screen');
@@ -169,7 +170,6 @@ function HomeStack(props) {
       <Stack.Screen
         name="add-new-feed"
         component={AddNewFeed}
-        // component={Welcome}
         options={{
           header: ({ navigation, scene }) => (
             <Header
@@ -232,15 +232,11 @@ function AppStack(props) {
 
 export default function OnboardingStack(props) {
   return (
-    <Stack.Navigator mode="card" headerMode="none">
-      {/* <Stack.Screen
-        name="Onboarding"
-        component={Onboarding}
-        option={{
-          headerTransparent: true
-        }}
-      /> */}
-      <Stack.Screen name="App" component={AppStack} />
-    </Stack.Navigator>
+    <>
+      <Stack.Navigator mode="card" headerMode="none">
+        <Stack.Screen name="App" component={AppStack} />
+      </Stack.Navigator>
+      {/* <BusyScreen /> */}
+    </>
   );
 }

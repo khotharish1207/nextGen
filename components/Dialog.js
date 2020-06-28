@@ -1,20 +1,15 @@
-import React, { Component, useState } from 'react';
-import { Alert, Modal, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import React from 'react';
+import { Modal, StyleSheet, Text, View } from 'react-native';
 import { Block, Button, theme } from 'galio-framework';
 
 import nowTheme from '../constants/Theme';
-import { Divider } from './index';
+import Divider from './Divider';
 
 const Dialog = ({ visible, title, onClose, ...props }) => {
   return (
     <Modal
-      //animationType="fade"
       transparent={true}
       visible={visible}
-      // presentationStyle="fullScreen"
-      // onRequestClose={() => {
-      //   Alert.alert('Modal has been closed.');
-      // }}
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
@@ -25,7 +20,6 @@ const Dialog = ({ visible, title, onClose, ...props }) => {
               color="transparent"
               icon="close"
               iconFamily="Font-Awesome"
-              //iconColor={this.state.like && nowTheme.COLORS.THUMB_SWITCH_ON}
               iconSize={theme.SIZES.BASE}
               onPress={onClose}
             />
@@ -37,8 +31,7 @@ const Dialog = ({ visible, title, onClose, ...props }) => {
               <Divider borderColor={nowTheme.COLORS.ACTIVE} />
             </>
           )}
-
-          {props.children}
+          <Block style={{ marginTop: 15, width: '100%' }}>{props.children}</Block>
         </View>
       </View>
     </Modal>
@@ -73,7 +66,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 20,
     opacity: 1,
-    zIndex: 9,
+    // zIndex: 9,
   },
   openButton: {
     backgroundColor: '#F194FF',

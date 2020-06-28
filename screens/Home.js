@@ -8,7 +8,6 @@ import { Button, CategoryIcon } from '../components';
 import { articles, nowTheme, topics } from '../constants';
 import { fetchCategories } from '../redux/actions/actions';
 import { chunk } from '../utils';
-import KeyboardAvoidingView from '../components/KeyboardAvoidingView';
 
 // import { CategoryIconDummy } from '../components/CategoryIcon';
 
@@ -89,7 +88,6 @@ class Home extends React.Component {
               </Block>
             ))}
           </Block>
-          {/* <KeyboardAvoidingView /> */}
         </ScrollView>
       </View>
     );
