@@ -6,14 +6,16 @@ export default [
     horizontal: true
   },
   {
-    title: 'Many limitations on what’s right',
-    image: require("../assets/imgs/bg40.jpg"),
-    cta: 'View article'
-  },
-  {
     title: 'Why would anyone pick blue over?',
     image: require("../assets/imgs/bg28.jpg"),
     cta: 'View article'
+  },
+  {
+    title: 'Many limitations on what’s right',
+    image: require("../assets/imgs/project15.jpg"),
+    videoUrl: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    cta: 'View article',
+    isVideo: true
   },
   {
     title: 'Pink is obviously a better color',
@@ -42,5 +44,12 @@ export default [
     description:
       'The smooth woven-wool is water resistant to ensure you stay pristine after a long-haul flight.',
     horizontal: true
-  }
+  },
+  {
+    title: 'youtube test',
+    image: require("../assets/imgs/project15.jpg"),
+    videoUrl: 'https://appmediastorage.s3.us-west-002.backblazeb2.com/song.mp4',
+    cta: 'View article',
+    isVideo: true
+  },
 ];

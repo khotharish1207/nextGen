@@ -6,17 +6,10 @@ import { bindActionCreators } from 'redux';
 import { setServiceLocations, setUserLocation } from '../redux/actions/actions';
 import nowTheme from '../constants/Theme';
 
-// "cityId": 1,
-// "cityName": "Pune",
-// "countryCode": "IN",
-// "countryName": "India",
-// "districtId": 1,
-// "districtName": "Pune",
-// "stateCode": "MH",
-// "stateId": 27,
-// "stateName": "Maharashtra",
+
 
 function renderLocations(serviceLocations) {
+  
   return serviceLocations.map((location) => (
     <Picker.Item
       key={`serviceLocation_${location.cityId}`}

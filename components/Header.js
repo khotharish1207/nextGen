@@ -130,7 +130,7 @@ class Header extends React.Component {
         <Button
           shadowless
           style={[styles.tab, styles.divider]}
-          onPress={() => console.log(navigation.navigate('Pro'))}
+          onPress={() => console.log(navigation.navigate('Feed'))}
         >
           <Block row middle>
             <Icon
@@ -145,7 +145,7 @@ class Header extends React.Component {
             </Text>
           </Block>
         </Button>
-        <Button shadowless style={styles.tab} onPress={() => navigation.navigate('Pro')}>
+        <Button shadowless style={styles.tab} onPress={() => navigation.navigate('add-new-feed')}>
           <Block row middle>
             <Icon
               size={18}

@@ -35,6 +35,8 @@ class Components extends React.Component {
     };
   }
 
+  scrollX = null;
+
 
 
   toggleSwitch = switchId => this.setState({ [switchId]: !this.state[switchId] });
@@ -245,8 +247,8 @@ class Components extends React.Component {
             primary={this.state.primaryFocus}
             right
             placeholder="Regular"
-            onFocus = {() => this.setState({primaryFocus: true})}
-            onBlur = {() => this.setState({primaryFocus: false})}
+            onFocus={() => this.setState({ primaryFocus: true })}
+            onBlur={() => this.setState({ primaryFocus: false })}
             iconContent={<Block />}
             shadowless
           />
@@ -257,8 +259,8 @@ class Components extends React.Component {
             right
             shadowless
             placeholder="Success"
-            onFocus = {() => this.setState({successFocus: true})}
-            onBlur = {() => this.setState({successFocus: false})}
+            onFocus={() => this.setState({ successFocus: true })}
+            onBlur={() => this.setState({ successFocus: false })}
             iconContent={
               <Icon size={11} color={nowTheme.COLORS.SUCCESS} name="check-22x" family="NowExtra" />
             }
@@ -270,8 +272,8 @@ class Components extends React.Component {
             right
             shadowless
             placeholder="Error Input"
-            onFocus = {() => this.setState({errorFocus: true})}
-            onBlur = {() => this.setState({errorFocus: false})}
+            onFocus={() => this.setState({ errorFocus: true })}
+            onBlur={() => this.setState({ errorFocus: false })}
             iconContent={
               <Icon
                 size={11}
@@ -480,8 +482,8 @@ class Components extends React.Component {
 
 
   renderCards = () => {
-    scrollX = new Animated.Value(0);
-    cards = [articles[5], articles[6]]
+    this.scrollX = new Animated.Value(0);
+    this.cards = [articles[5], articles[6]]
     return (
       <Block flex style={styles.group}>
 
@@ -517,8 +519,8 @@ class Components extends React.Component {
           contentContainerStyle={{
             width: width * 2
           }}>
-          {cards.map((item, index) => {
-            return <Card key={index} item={item} full titleStyle={styles.productTitle} imageStyle={ { height: 300, width: '100%', resizeMode: 'contain' } }/>
+          {this.cards.map((item, index) => {
+            return <Card key={index} item={item} full titleStyle={styles.productTitle} imageStyle={{ height: 300, width: '100%', resizeMode: 'contain' }} />
           })}
         </ScrollView>
 
@@ -544,7 +546,7 @@ class Components extends React.Component {
             {Images.Viewed.map((img, index) => (
               <Block key={`viewed-${img}`} style={styles.shadow}>
                 {/* <Image resizeMode="cover" source={img} style={styles.albumThumb} /> */}
-                <Card item={articles[3]} style={styles.albumThumb}/>
+                <Card item={articles[3]} style={styles.albumThumb} />
               </Block>
             ))}
           </Block>

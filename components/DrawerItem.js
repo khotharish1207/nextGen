@@ -60,6 +60,16 @@ class DrawerItem extends React.Component {
             style={{ opacity: 0.5 }}
           />
         );
+      case 'Signup':
+        return (
+          <Icon
+            name="badge2x"
+            family="NowExtra"
+            size={18}
+            color={focused ? nowTheme.COLORS.PRIMARY : 'white'}
+            style={{ opacity: 0.5 }}
+          />
+        );
       case 'Settings':
         return (
           <Icon
@@ -90,7 +100,7 @@ class DrawerItem extends React.Component {
           />
         );
       case 'LOGOUT':
-      case 'LOGIN':
+      case 'Login':
         return (
           <Icon
             name="share"
@@ -117,7 +127,7 @@ class DrawerItem extends React.Component {
       <TouchableOpacity
         style={{ height: 60 }}
         onPress={() =>
-          onPress ? onPress() : navigation.navigate( title)
+          onPress ? onPress() : navigation.navigate(title)
         }
       >
         <Block flex row style={containerStyles}>

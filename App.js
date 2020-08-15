@@ -6,20 +6,34 @@ import { Asset } from 'expo-asset';
 import { Block, GalioProvider } from 'galio-framework';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import axios from 'axios';
+
 
 import configureStore from './redux/store';
-import { fetchCategories, fetchServiceLocations } from './redux/actions/actions';
+import { fetchCategories, fetchServiceLocations, getToken, action } from './redux/actions/actions';
 import Screens from './navigation/Screens';
 import { Images, articles, nowTheme } from './constants';
 import BusyScreen from './components/BusyScreen';
+// import {retrieveAsyncData} from './utils'
 
 const store = configureStore({});
 
-(function init() {
-  store.dispatch(fetchCategories());
-  store.dispatch(fetchServiceLocations());
+(async function init() {
+
+  // await store.dispatch(getToken());
+  await store.dispatch(action());
+  // await store.dispatch(fetchCategories());
+  // await store.dispatch(fetchServiceLocations());
+  // store.dispatch(fetchSocialPosts());
 })();
+
+// axios.interceptors.request.use(function (config) {
+//   const token = store.getState().app.accessToken;
+//   // const token = localStorage.getItem('token');
+//   console.log('===axios.interceptors==', token)
+//   config.headers.Authorization = token ? token : '';
+//   return config;
+// });
 
 // cache app images
 const assetImages = [

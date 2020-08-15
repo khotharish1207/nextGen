@@ -9,8 +9,13 @@ import { nowTheme } from '../constants';
 
 class DropDown extends React.Component {
   state = {
-    value: 1
+    value: ''
   };
+
+  componentDidMount() {
+    const { defaultIndex } = this.props;
+    this.setState({ value: defaultIndex })
+  }
 
   handleOnSelect = (index, value) => {
     const { onSelect } = this.props;
@@ -71,8 +76,8 @@ DropDown.propTypes = {
 
 const styles = StyleSheet.create({
   qty: {
-    width: 100,
-    backgroundColor: nowTheme.COLORS.DEFAULT,
+    width: '100%',
+    backgroundColor: nowTheme.COLORS.PRIMARY,
     paddingHorizontal: 16,
     paddingTop: 10,
     paddingBottom: 9.5,
@@ -84,7 +89,9 @@ const styles = StyleSheet.create({
   },
   text: {
     color: nowTheme.COLORS.WHITE,
-    fontWeight: '600'
+    fontWeight: '600',
+    width: '100%',
+
   },
   dropdown: {
     marginTop: 8,

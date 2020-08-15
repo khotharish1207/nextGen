@@ -6,7 +6,7 @@ import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import { Block, Text, theme, Button as Btn, Icon } from 'galio-framework';
-// import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 import { addSocialPosts } from '../redux/actions/actions';
 import { nowTheme } from '../constants/';
 import {
@@ -17,10 +17,12 @@ import {
   TextArea,
 } from '../components';
 
+
 class AddNewFeed extends React.Component {
   state = {
     image: null,
     full: true,
+    comment: ''
   };
 
   componentDidMount() {
@@ -130,19 +132,41 @@ class AddNewFeed extends React.Component {
     );
   };
 
-  onPostSubmit = () => {};
+  onPostSubmit = () => {
+    console.log('pressed')
+    const { title, content, url } = this.state
+    this.props.addSocialPosts({ title, content, url })
+  };
 
-  onChange = (type) => (e) => this.setState({ [type]: e.target.value });
+  onChange = (type) => (e) => {
+    this.setState({ [type]: e.nativeEvent.text });
+  }
 
   render() {
-    console.log(this.state);
+    const { title, content, url } = this.state
+    console.log('!title || !content', !title || !content)
+
     return (
       <KeyboardAwareScrollView>
         {this.renderCards()}
+        {/* <Video
+          // source={{ uri: "https://appmediastorage.s3.us-west-002.backblazeb2.com/animation.mp4" }}   // Can be a URL or a local file.
+          source={{ uri: 'https://appmediastorage.s3.us-west-002.backblazeb2.com/song.mp4 ' }}
+          // posterSource={require("../assets/images/play_button.png")}
+          usePoster
+          rate={1.0}
+          volume={1.0}
+          isMuted={false}
+          resizeMode="cover"
+          shouldPlay
+          // isLooping
+          style={{ height: 300 }}
+        /> */}
+
         {this.renderLocationSelector()}
         {this.renderInputs()}
         <Block flex center style={{ marginTop: 20 }}>
-          <LButton round color="primary" size="small">
+          <LButton round color="primary" size="small" disabled={!title || !content} onPress={this.onPostSubmit}>
             Share
           </LButton>
         </Block>

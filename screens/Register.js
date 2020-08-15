@@ -19,6 +19,11 @@ const DismissKeyboard = ({ children }) => (
 );
 
 class Register extends React.Component {
+
+  onSignIn = () => {
+    const { navigation, login } = this.props;
+    navigation.navigate('Home')
+  }
   render() {
     return (
       <DismissKeyboard>
@@ -144,7 +149,7 @@ class Register extends React.Component {
                             />
                           </Block>
                           <Block
-                            style={{ marginVertical: theme.SIZES.BASE, marginLeft: 15}}
+                            style={{ marginVertical: theme.SIZES.BASE, marginLeft: 15 }}
                             row
                             width={width * 0.75}
                           >
@@ -164,7 +169,7 @@ class Register extends React.Component {
                           </Block>
                         </Block>
                         <Block center>
-                          <Button color="primary" round style={styles.createButton}>
+                          <Button color="primary" round style={styles.createButton} onPress={this.onSignIn}>
                             <Text
                               style={{ fontFamily: 'montserrat-bold' }}
                               size={14}

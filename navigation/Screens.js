@@ -8,12 +8,16 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import Profile from '../screens/Profile';
 import Register from '../screens/Register';
+import Login from '../screens/Login';
 import Components from '../screens/Components';
 import Articles from '../screens/Articles';
 import Onboarding from '../screens/Onboarding';
 import SettingsScreen from '../screens/Settings';
 import Feeds from '../screens/Feeds';
 import AddNewFeed from '../screens/AddNewFeed';
+import AddSocialPost from '../screens/AddSocialPost'
+// import AddSocialPost from '../screens/Video'; //test purpose
+
 // drawer
 import CustomDrawerContent from './Menu';
 // header for screens
@@ -80,13 +84,30 @@ function ArticlesStack(props) {
 
 function AccountStack(props) {
   return (
-    <Stack.Navigator initialRouteName="Account" mode="card" headerMode="screen">
+    <Stack.Navigator initialRouteName="Signup" mode="card" headerMode="screen">
       <Stack.Screen
-        name="Account"
+        name="Signup"
         component={Register}
         options={{
           header: ({ navigation, scene }) => (
             <Header transparent title="Create Account" navigation={navigation} scene={scene} />
+          ),
+          headerTransparent: true,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function LoginStack(props) {
+  return (
+    <Stack.Navigator initialRouteName="Login" mode="card" headerMode="screen">
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header transparent title="Login" navigation={navigation} scene={scene} />
           ),
           headerTransparent: true,
         }}
@@ -140,8 +161,10 @@ function HomeStack(props) {
           header: ({ navigation, scene }) => (
             <Header
               title="Home"
-              search
+              // search
               // options
+              // optionLeft={'Social'}
+              // optionRight={'News'}
               navigation={navigation}
               scene={scene}
             />
@@ -170,6 +193,24 @@ function HomeStack(props) {
       <Stack.Screen
         name="add-new-feed"
         component={AddNewFeed}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              title="Add New"
+              back
+              transparent
+              navigation={navigation}
+              scene={scene}
+              bgColor={nowTheme.COLORS.ACTIVE}
+              titleColor="white"
+              iconColor="white"
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="add-social-post"
+        component={AddSocialPost}
         options={{
           header: ({ navigation, scene }) => (
             <Header
@@ -224,7 +265,8 @@ function AppStack(props) {
       <Drawer.Screen name="Components" component={ComponentsStack} />
       {/* <Drawer.Screen name="Articles" component={ArticlesStack} /> */}
       <Drawer.Screen name="Profile" component={ProfileStack} />
-      {/* <Drawer.Screen name="Account" component={AccountStack} /> */}
+      <Drawer.Screen name="Signup" component={AccountStack} />
+      <Drawer.Screen name="Login" component={LoginStack} />
       {/* <Drawer.Screen name="Settings" component={SettingsStack} /> */}
     </Drawer.Navigator>
   );

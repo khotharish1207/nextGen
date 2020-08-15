@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ScrollView, StyleSheet, Dimensions, Image, TouchableOpacity, Linking } from 'react-native';
+import { ScrollView, StyleSheet, Dimensions, Image, Alert } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 import { useSafeArea } from 'react-native-safe-area-context';
 import Images from '../constants/Images';
@@ -30,19 +30,32 @@ function CustomDrawerContent({
   ...props
 }) {
   const [loginVisible, setloginVisible] = useState(false);
-  //const insets = useSafeArea();
-  const { token, user } = auth;
+  const [userId, setUserId] = useState('');
+  const [password, setPassword] = useState('');
+
+
+  const { token, user, userName } = auth || {};
 
   const onLogin = () => {
-    props.login();
-    setloginVisible(false);
+
+    props.login({ userId, password })
+      .then(() => setloginVisible(false))
+      .catch(() => Alert.alert(
+        "Login Fail",
+        "You have entered an invalid username or password",
+        [
+
+          { text: "OK", onPress: () => { setUserId(""); setPassword('') } }
+        ],
+        { cancelable: true }))
   };
 
   const screens = [
     'Home',
-    'Components',
-    token ? 'Profile' : null,
-    // 'Account',
+    // 'Components',
+    // token ? 'Profile' : null,
+    token ? null : 'Signup',
+    token ? null : 'Login',
   ].filter((x) => x);
 
   return (
@@ -68,23 +81,23 @@ function CustomDrawerContent({
 
           <Block flex style={{ marginTop: 24, marginVertical: 8, paddingHorizontal: 8 }}>
             <Divider />
-            {user && user.id && (
+            {userName && (
               <>
                 <Text style={styles.text}>USER</Text>
-                <Text style={styles.text}>{user.userName}</Text>
+                <Text style={styles.text}>{userName}</Text>
               </>
             )}
 
-            <Text style={styles.text} size={14} color={nowTheme.COLORS.WHITE}>
+            {/* <Text style={styles.text} size={14} color={nowTheme.COLORS.WHITE}>
               Your City
-            </Text>
-            <LocationSelector />
+            </Text> */}
+            {/* <LocationSelector /> */}
           </Block>
-          <DrawerCustomItem
-            title={token ? 'LOGOUT' : 'LOGIN'}
+          {token && <DrawerCustomItem
+            title={'LOGOUT'}
             navigation={navigation}
-            onPress={token ? props.logout : () => setloginVisible(true)}
-          />
+            onPress={props.logout}
+          />}
         </ScrollView>
       </Block>
 
@@ -92,30 +105,34 @@ function CustomDrawerContent({
         <Text size={16}>User Name</Text>
         <Block>
           <Input
-            // primary={this.state.primaryFocus}
-            right
             placeholder="User Name"
-            // onFocus={() => this.setState({ primaryFocus: true })}
-            // onBlur={() => this.setState({ primaryFocus: false })}
             iconContent={<Block />}
+            onChange={(e) => setUserId(e.nativeEvent.text)}
             shadowless
+            value={userId}
           />
         </Block>
         <Text size={16}>Password</Text>
         <Block>
           <Input
-            // primary={this.state.ContentFocus}
-            right
             placeholder="Password"
-            // onFocus={() => this.setState({ ContentFocus: true })}
-            // onBlur={() => this.setState({ ContentFocus: false })}
             iconContent={<Block />}
             shadowless
+            value={password}
+            password
+            onChange={(e) => setPassword(e.nativeEvent.text)}
+
           />
         </Block>
 
-        <Block center style={{ marginTop: 20 }}>
-          <Button onPress={onLogin} round color="primary" size="small">
+        <Block center style={{ marginTop: 20, opacity: (!userId || !password) ? 0.5 : 1 }} >
+          <Button
+            onPress={onLogin}
+            round
+            color="primary"
+            size="small"
+            disabled={!userId || !password}
+          >
             Login
           </Button>
         </Block>

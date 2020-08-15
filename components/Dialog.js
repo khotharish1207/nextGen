@@ -5,14 +5,17 @@ import { Block, Button, theme } from 'galio-framework';
 import nowTheme from '../constants/Theme';
 import Divider from './Divider';
 
-const Dialog = ({ visible, title, onClose, ...props }) => {
+const Dialog = ({ visible, title, onClose, full, style, ...props }) => {
+
+  const modalStyles = [styles.modalView, full ? styles.fullDialog : {}, style];
+
   return (
     <Modal
       transparent={true}
       visible={visible}
     >
       <View style={styles.centeredView}>
-        <View style={styles.modalView}>
+        <View style={modalStyles}>
           <Block style={{ position: 'absolute', top: 10, right: 20 }}>
             <Button
               round
@@ -40,7 +43,7 @@ const Dialog = ({ visible, title, onClose, ...props }) => {
 
 Dialog.defaultProps = {
   visible: false,
-  onClose: () => {},
+  onClose: () => { },
 };
 
 const styles = StyleSheet.create({
@@ -67,6 +70,10 @@ const styles = StyleSheet.create({
     elevation: 20,
     opacity: 1,
     // zIndex: 9,
+  },
+  fullDialog: {
+    width: '100%',
+    height: '100%'
   },
   openButton: {
     backgroundColor: '#F194FF',

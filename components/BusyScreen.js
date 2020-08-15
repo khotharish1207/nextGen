@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Modal, StyleSheet, View, Animated, Easing } from 'react-native';
+import { Modal, StyleSheet, View, Animated, Easing, ActivityIndicator } from 'react-native';
 import { Button } from 'galio-framework';
+import { nowTheme as theme } from '../constants/';
+
 
 const spinValue = new Animated.Value(0);
 
@@ -23,7 +25,7 @@ const BusyScreen = ({ visible, ...props }) => {
   return (
     <Modal transparent={true} visible={visible}>
       <View style={styles.centeredView}>
-        <Button
+        {/* <Button
           onlyIcon
           icon="refresh"
           iconFamily="Font-Awesome"
@@ -31,7 +33,8 @@ const BusyScreen = ({ visible, ...props }) => {
           color="transparent"
           iconColor="#fff"
           style={{ transform: [{ rotate: spin }] }}
-        />
+        /> */}
+        <ActivityIndicator size={'large'} color={theme.COLORS.ACTIVE} />
       </View>
     </Modal>
   );

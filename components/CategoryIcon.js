@@ -36,7 +36,7 @@ class CategoryIcon extends React.Component {
       <Block width={!horizontal && width / 2.5} row={horizontal} card flex style={cardContainer}>
         <TouchableWithoutFeedback onPress={() => navigation.navigate('Feed')}>
           <Block flex style={imgContainer}>
-            <Image resizeMode="cover" source={{ uri: item.image }} style={imageStyles} />
+            <Image resizeMode="cover" source={{ uri: item.imgUrl }} style={imageStyles} />
           </Block>
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback onPress={() => navigation.navigate('Feed')}>
@@ -48,7 +48,7 @@ class CategoryIcon extends React.Component {
                 style={titleStyles}
                 color={nowTheme.COLORS.SECONDARY}
               >
-                {item.title}
+                {item.name}
               </Text>
             </Block>
           </Block>

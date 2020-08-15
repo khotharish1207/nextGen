@@ -13,6 +13,8 @@ import Dialog from './Dialog';
 import Divider from './Divider';
 import KeyboardAwareScrollView from './KeyboardAwareScrollViewCustom';
 import TextArea from './TextArea';
+import Video from './VideoInCard';
+import Picker from './Picker'
 
 export {
   Button,
@@ -30,4 +32,6 @@ export {
   Divider,
   KeyboardAwareScrollView,
   TextArea,
+  Video,
+  Picker
 };

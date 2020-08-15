@@ -3,11 +3,16 @@ import { StyleSheet, Dimensions, ScrollView, Image, View } from 'react-native';
 import { Block, Text, Card } from 'galio-framework';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+
 
 import { Button, CategoryIcon } from '../components';
 import { articles, nowTheme, topics } from '../constants';
-import { fetchCategories } from '../redux/actions/actions';
+import { fetchCategories, getToken } from '../redux/actions/actions';
 import { chunk } from '../utils';
+import Articles from './Articles'
+const Tab = createMaterialTopTabNavigator();
+
 
 // import { CategoryIconDummy } from '../components/CategoryIcon';
 
@@ -26,7 +31,8 @@ class Home extends React.Component {
   };
 
   onAddNew = () => {
-    const { navigation } = this.props;
+    const { navigation, getToken } = this.props;
+    // getToken();
     navigation.navigate('add-new-feed');
   };
 
@@ -131,11 +137,21 @@ const styles = StyleSheet.create({
     height: 60,
     alignSelf: 'flex-end',
     position: 'absolute',
-    bottom: 35,
+    bottom: 25,
   },
 });
 
 const mapState = ({ app }) => ({ ...app });
-const mapDispatch = (dispatch) => bindActionCreators({ fetchCategories }, dispatch);
+const mapDispatch = (dispatch) => bindActionCreators({ fetchCategories, getToken }, dispatch);
 
-export default connect(mapState, mapDispatch)(Home);
+// export default connect(mapState, mapDispatch)(Home);
+
+
+function TabbedHome() {
+  return <Tab.Navigator>
+    <Tab.Screen name="Social" component={Articles} />
+    <Tab.Screen name="News" component={connect(mapState, mapDispatch)(Home)} />
+  </Tab.Navigator>
+}
+
+export default TabbedHome
